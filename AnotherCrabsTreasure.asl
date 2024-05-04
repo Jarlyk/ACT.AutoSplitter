@@ -61,7 +61,7 @@ startup {
         {"grove_heikea", true, "Heikea Defeated", 150, false, false},
         {"grove_topoda", false, "Topoda Defeated", 300, false, false},
         {"grove_lichenthrope", false, "Diseased Lichenthrope Defeated", 700, false, false},
-        {"grove_carbonara", false, "Curdled Carbonara Conoisseur Defeated", 700, false, false}
+        {"grove_carbonara", false, "Curdled Carbonara Conoisseur Defeated", 800, false, false}
     };
     addSplits(vars.grove, vars.categoryGrove);
 	
