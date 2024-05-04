@@ -175,7 +175,6 @@ init {
 		vars._loadingScreen = helper["Assembly-CSharp", "LoadingScreen"];
 		vars._player = helper["Assembly-CSharp", "Player"];
 		vars._shell = helper["Assembly-CSharp", "Shell"];
-		vars.Manager = helper;
         return true;
     });
 
