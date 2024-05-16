@@ -48,7 +48,7 @@ startup {
         {"shallows_nephro", false, "Nephro Defeated", 600, false, false},	
         {"shallows_dutchess", false, "Magista Defeated", 1400, false, false},
 		{"shallows_royal", false, "Royal Shellsplitter Defeated", 1500, false, false},
-		{"shallows_ppp", true, "Polluted Platoon Pathfinder Defeated", 1600, false, false}
+		{"shallows_ppp", false, "Polluted Platoon Pathfinder Defeated", 1600, false, false}
     };
     addSplits(vars.shallows, vars.categoryShallows);
 
@@ -82,7 +82,7 @@ startup {
     vars.newcar = new object[,] {
         {"newcar_entered", false, "Entered", 10, false, false},
         {"newcar_garbage", true, "Trash Day Cutscene", 200, false, false},
-        {"newcar_vale_map", true, "Mailbox Map Piece", 400, false, false},
+        {"newcar_vale_map", false, "Mailbox Map Piece", 400, false, false},
         {"newcar_completed_map", false, "Completed  Map", 600, false, false}
     };
     addSplits(vars.newcar, vars.categoryNewCar);
@@ -94,7 +94,7 @@ startup {
     vars.scuttleport = new object[,] {
         {"scuttleport_entered", false, "Entered Facilities", 250, false, false},
         {"scuttleport_voltai", true, "Voltai Defeated", 850, false, false},
-        {"scuttleport_boat", true, "Boat Powered", 1000, false, false},
+        {"scuttleport_boat", false, "Boat Powered", 1000, false, false},
         {"scuttleport_consort", false, "The Consortium Defeated", 1200, false, false},
         {"scuttleport_roland", true, "Roland Defeated", 1300, false, false},
         {"scuttleport_roller", false, "Scuttling Sludge Steamroller Defeated", 1400, false, false},
@@ -107,9 +107,9 @@ startup {
 	settings.Add(vars.categoryUnfathom, true, "The Unfathom");
 	settings.SetToolTip(vars.categoryUnfathom, "splits when flag is set");	
     vars.unfathom = new object[,] {
-        {"unfathom_nemma", true, "Depression Sequence", 25, false, false},
+        {"unfathom_nemma", false, "Depression Sequence", 25, false, false},
         {"unfathom_petroch", false, "Petroch Defeated", 69, false, false},
-        {"unfathom_inkerton", true, "Inkerton Defeated", 3000, false, false}
+        {"unfathom_inkerton", false, "Inkerton Defeated", 3000, false, false}
     };	
     addSplits(vars.unfathom, vars.categoryUnfathom);
 	
@@ -118,7 +118,10 @@ startup {
 	settings.Add(vars.categoryBleached, true, "Bleached City");
 	settings.SetToolTip(vars.categoryBleached, "splits when flag is set");	
     vars.bleached = new object[,] {
-        {"bleached_king", true, "Camstcha Defeated", 550, false, false},
+	{"bleached_elevator", true, "Elevator To Carcinia", 100, false, false},
+	{"bleached_faucet1", false, "Faucet Gate Left", 165, false, false},
+	{"bleached_faucet2", false, "Faucet Gate Right", 180, false, false},
+        {"bleached_king", false, "Camstcha Defeated", 550, false, false},
         {"bleached_praya", true, "Praya Dubia Defeated", 800, false, false}
     };
     addSplits(vars.bleached, vars.categoryBleached);
@@ -137,7 +140,7 @@ startup {
 	settings.Add(vars.categorySkills, true, "World Skills");
 	settings.SetToolTip(vars.categorySkills, "splits when unlocked");	
     vars.skills = new object[,] {
-        {"skills_string", true, "Fishing line", 200, false, false}
+        {"skills_string", false, "Fishing line", 200, false, false}
     };
     addSplits(vars.skills, vars.categorySkills);
 	
@@ -149,7 +152,8 @@ startup {
         {"tskills_umami", false, "Basic Umami training", 100, false, false},
 		{"tskills_parry", true, "Parry", 1600, false, false},
 		{"tskills_aggro", false, "Aggravation", 1400, false, false},
-		{"tskills_selfrepair", false, "Self-Repair", 1500, false, false}
+		{"tskills_selfrepair", false, "Self-Repair", 1500, false, false},
+		{"tskills_hammer", false, "Scrap Hammer", 2000, false, false}
     };
     addSplits(vars.tskills, vars.categoryTSkills);
 	
@@ -175,6 +179,7 @@ init {
 		vars._loadingScreen = helper["Assembly-CSharp", "LoadingScreen"];
 		vars._player = helper["Assembly-CSharp", "Player"];
 		vars._shell = helper["Assembly-CSharp", "Shell"];
+		vars.monoGlobal = helper;
         return true;
     });
 
@@ -228,6 +233,9 @@ update {
 	var ud = vars._ud;
 	var ld = vars._ld;
 	var gui = vars._gui;
+	
+	if (gui.Static == IntPtr.Zero) vars.Helper.TryLoad(vars.monoGlobal);
+
 	if (gm.Static != IntPtr.Zero) {	
 		var gmPtr = vars.Helper.Read<IntPtr>(gm.Static + gm["_instance"]);
 		if (gmPtr != IntPtr.Zero) {
